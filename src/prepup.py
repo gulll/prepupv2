@@ -5,11 +5,15 @@ import json
 import datetime
 from pre_storage import PreLocal
 from bottle import request, response
+from config import prepup_data
+
+prepup = prepup_data()
 
 class PgData(object):
     def __init__(self):
         self.video_url = ""
         self.pre_local = PreLocal()
+        self.app_ver = prepup.appVersion
         self.app_id_pg = 'prepupProgramming'
 
     def get_categories(self):
@@ -26,11 +30,11 @@ class PgData(object):
                       categ_data = {}
                       categ_data['catId'] = cat_id
                       categ_data['catName'] = cat_name
-                      category_list.append(response_data)
+                      category_list.append(categ_data)
          except Exception as e:
                     return json.dumps({'status': str(e)})
          response_data = {}
-         response_data['version'] = os.environ.get("PRUP_VER", 'v1')
+         response_data['version'] = self.app_ver
          response_data['appId'] = self.app_id_pg
          response_data['categories'] = json.dumps(category_list)
          response.status = 200

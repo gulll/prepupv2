@@ -1,17 +1,20 @@
 import os
 import MySQLdb
 import traceback
+from config import prepup_data
 
 class PreLocal(object):
 
     def __init__(self):
-        self.database = os.environ.get("DB_NAME", None)
-        self.host = os.environ.get("DB_HOST", None)
-        self.user = os.environ.get("DB_USER", None)
-        self.password = os.environ.get("DB_PASSWORD", None)
+        prepup = prepup_data()
+        self.database = prepup.dbName
+        self.host = prepup.host
+        self.user = prepup.user
+        self.password = prepup.password
 
 
     def connect(self):
+        print self.host,self.user,self.password, self.database
         db = MySQLdb.connect(self.host,self.user,self.password, self.database)
         cursor = db.cursor()
         return db, cursor
