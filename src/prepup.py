@@ -90,7 +90,7 @@ class PgData(object):
                     question_data['explanation'] = explanation
                     question_data['extLink'] = extLink
                     question_data['type'] = 'MCQ'
-                    question_data['cDate'] = time.mktime(timestamp.timetuple())
+                    question_data['cDate'] = time.mktime(timestamp.timetuple())*1000
                     question_list.append(question_data)
         except Exception as e:
             return json.dumps({'status': str(e)})
