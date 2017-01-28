@@ -1,6 +1,7 @@
 from bottle import request, response
 import requests
 import urllib
+import time
 import json
 import datetime
 from pre_storage import PreLocal
@@ -89,7 +90,7 @@ class PgData(object):
                     question_data['explanation'] = explanation
                     question_data['extLink'] = extLink
                     question_data['type'] = 'MCQ'
-                    question_data['timestamp'] = timestamp
+                    question_data['cDate'] = time.mktime(timestamp.timetuple())
                     question_list.append(question_data)
         except Exception as e:
             return json.dumps({'status': str(e)})
