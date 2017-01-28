@@ -45,31 +45,43 @@ class PgData(object):
         response.content_type = 'application/json;charset=utf-8'
         response.status = 400
         params = dict(request.POST)
-        p_cat_id = params.get("cat_id", None)
-        if p_cat_id is None:
-            return json.dumps({"Error": "cat_id can't be null"})
+        pCatId = params.get("catId", None)
+        if pCatId is None:
+            return json.dumps({"Error": "catId can't be null"})
+        pLimit = params.get("limit", 20)
+        pStartAt = params.get("startAt", 0)
         question_list = []
         try:
             _sql = """
-                     select * from %s wher cat_id = %s
-                      """ % 'question_mcq',p_cat_id
+                     select * from %s wher cat_id = %s limit (%d, %d)
+                      """ % ('question_mcq', pCatId, pStartAt, pLimit)
             results = self.pre_local.execute_query(_sql, 'select')
             if results is not None:
                 for question_id, cat_id, qn_text, opt1, opt2, opt3, opt4, \
-                    opt5, opt6, ans, tags, explanation in results:
+                    opt5, opt6, ans, tags, explanation, extLink in results:
                     question_data = {}
-                    question_data['question_id'] = question_id
+                    question_data['questionId'] = question_id
                     question_data['catId'] = cat_id
-                    question_data['qn_text'] = qn_text
-                    question_data['opt1'] = opt1
-                    question_data['opt2'] = opt2
-                    question_data['opt3'] = opt3
-                    question_data['opt4'] = opt4
-                    question_data['opt5'] = opt5
-                    question_data['opt6'] = opt6
+                    question_data['qnText'] = qn_text
+                    opts = []
+                    if opt1 is not None:
+                        opts.append(opt1)
+                    if opt2 is not None:
+                        opts.append(opt2)
+                    if opt3 is not None:
+                        opts.append(opt3)
+                    if opt4 is not None:
+                        opts.append(opt4)
+                    if opt5 is not None:
+                        opts.append(opt5)
+                    if opt6 is not None:
+                        opts.append(opt6)
+                    question_data['opts'] = opts
                     question_data['ans'] = ans
                     question_data['tags'] = tags
                     question_data['explanation'] = explanation
+                    question_data['extLink'] = extLink
+                    question_data['type'] = 'MCQ'
                     question_list.append(question_data)
         except Exception as e:
             return json.dumps({'status': str(e)})
