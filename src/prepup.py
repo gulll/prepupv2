@@ -17,6 +17,13 @@ class PgData(object):
         self.app_ver = prepup.appVersion
         self.app_id_pg = 'prepupProgramming'
 
+    def serialize(self, obj):
+    	if isinstance(obj, datetime.datetime):
+            return str(obj.strftime("%Y-%m-%d %H:%M:%S"))
+   	elif isinstance(obj, datetime.date):
+            return str(obj.strftime("%Y-%m-%d"))
+        return json.JSONEncoder.default(obj)
+
     def get_categories(self):
         response.content_type = 'application/json;charset=utf-8'
         response.status = 400
@@ -48,17 +55,17 @@ class PgData(object):
         pCatId = params.get("catId", None)
         if pCatId is None:
             return json.dumps({"Error": "catId can't be null"})
-        pLimit = params.get("limit", 20)
-        pStartAt = params.get("startAt", 0)
+        pLimit = int(params.get("limit", 20))
+        pStartAt = int(params.get("startAt", 0))
         question_list = []
         try:
             _sql = """
-                     select * from %s wher cat_id = %s limit (%d, %d)
+                     select * from %s where cat_id = %s limit %d, %d
                       """ % ('question_mcq', pCatId, pStartAt, pLimit)
             results = self.pre_local.execute_query(_sql, 'select')
             if results is not None:
                 for question_id, cat_id, qn_text, opt1, opt2, opt3, opt4, \
-                    opt5, opt6, ans, tags, explanation, extLink in results:
+                    opt5, opt6, ans, tags, explanation, extLink, timestamp in results:
                     question_data = {}
                     question_data['questionId'] = question_id
                     question_data['catId'] = cat_id
@@ -82,12 +89,13 @@ class PgData(object):
                     question_data['explanation'] = explanation
                     question_data['extLink'] = extLink
                     question_data['type'] = 'MCQ'
+                    question_data['timestamp'] = timestamp
                     question_list.append(question_data)
         except Exception as e:
             return json.dumps({'status': str(e)})
         response_data = {}
         response_data['version'] = self.app_ver
         response_data['appId'] = self.app_id_pg
-        response_data['questions'] = json.dumps(question_list)
+        response_data['questions'] = question_list
         response.status = 200
-        return json.dumps(response_data)
+        return json.dumps(response_data, default=self.serialize)

@@ -14,7 +14,7 @@ class PreLocal(object):
 
 
     def connect(self):
-        print self.host,self.user,self.password, self.database
+        #print self.host,self.user,self.password, self.database
         db = MySQLdb.connect(self.host,self.user,self.password, self.database)
         cursor = db.cursor()
         return db, cursor
