@@ -25,7 +25,7 @@ def main():
     tags = ''
     expl = ''
     pre_local = PreLocal()
-    with open(dir_path+'/../data/raw_questions_java', 'r') as raw_file:
+    with open(dir_path+'/../data/raw_questions_ds', 'r') as raw_file:
         for line in raw_file:
             #print line
             if line[0]=='Q' and line[1]=='.':
@@ -63,7 +63,7 @@ def main():
                         _sql = """
                                 INSERT INTO %s (cat_id, qnType, qn_text, opt1, opt2, opt3, opt4, ans, explanation, tags)
                                 VALUES (%d,'%s','%s','%s','%s','%s','%s','%s', '%s', '%s');
-                               """ % ('question_mcq',2, 'MCQ', db.escape_string(str(unicodeToHTMLEntities(qn_text))),db.escape_string(str(unicodeToHTMLEntities(opt1))),
+                               """ % ('question_mcq',1, 'MCQ', db.escape_string(str(unicodeToHTMLEntities(qn_text))),db.escape_string(str(unicodeToHTMLEntities(opt1))),
                                       db.escape_string(str(unicodeToHTMLEntities(opt2))),db.escape_string(str(unicodeToHTMLEntities(opt3))),
                                       db.escape_string(str(unicodeToHTMLEntities(opt4))),db.escape_string(str(unicodeToHTMLEntities(ans))),
                                       db.escape_string(str(unicodeToHTMLEntities(expl))),db.escape_string(str(unicodeToHTMLEntities(tags))))
@@ -83,7 +83,7 @@ def main():
                         _sql = """
                                 INSERT INTO %s (cat_id, qnType, qn_text, opt1, opt2, opt3, opt4, ans, explanation, tags)
                                 VALUES (%d,'%s','%s','%s','%s','%s','%s','%s', %s, %s);
-                               """ % ('question_mcq',2, 'MCQ', db.escape_string(str(unicodeToHTMLEntities(qn_text))),db.escape_string(str(unicodeToHTMLEntities(opt1))),
+                               """ % ('question_mcq',1, 'MCQ', db.escape_string(str(unicodeToHTMLEntities(qn_text))),db.escape_string(str(unicodeToHTMLEntities(opt1))),
                                       db.escape_string(str(unicodeToHTMLEntities(opt2))),db.escape_string(str(unicodeToHTMLEntities(opt3))),
                                       db.escape_string(str(unicodeToHTMLEntities(opt4))),db.escape_string(str(unicodeToHTMLEntities(ans))),
                                       db.escape_string(str(unicodeToHTMLEntities(expl))),db.escape_string(str(unicodeToHTMLEntities(tags))))

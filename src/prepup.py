@@ -45,7 +45,7 @@ class PgData(object):
         response_data = {}
         response_data['version'] = self.app_ver
         response_data['appId'] = self.app_id_pg
-        response_data['categories'] = json.dumps(category_list)
+        response_data['categories'] = category_list
         response.status = 200
         return json.dumps(response_data)
 
@@ -66,7 +66,7 @@ class PgData(object):
             results = self.pre_local.execute_query(_sql, 'select')
             if results is not None:
                 for question_id, cat_id, qn_text, opt1, opt2, opt3, opt4, \
-                    opt5, opt6, ans, tags, explanation, extLink, timestamp in results:
+                    opt5, opt6, ans, tags, explanation, extLink, timestamp, qnType in results:
                     question_data = {}
                     question_data['questionId'] = question_id
                     question_data['catId'] = cat_id
@@ -89,7 +89,7 @@ class PgData(object):
                     question_data['tags'] = tags
                     question_data['explanation'] = explanation
                     question_data['extLink'] = extLink
-                    question_data['type'] = 'MCQ'
+                    question_data['qnType'] = qnType
                     question_data['cDate'] = time.mktime(timestamp.timetuple())*1000
                     question_list.append(question_data)
         except Exception as e:
