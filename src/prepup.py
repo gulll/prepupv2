@@ -49,6 +49,42 @@ class PgData(object):
         response.status = 200
         return json.dumps(response_data)
 
+    def get_articles(self):
+        response.content_type = 'application/json;charset=utf-8'
+        response.status = 400
+        params = dict(request.POST)
+        pCatId = params.get("catId", None)
+        if pCatId is None:
+            return json.dumps({"Error": "catId can't be null"})
+        pLimit = int(params.get("limit", 20))
+        pStartAt = int(params.get("startAt", 0))
+        question_list = []
+        try:
+            _sql = """
+                     select * from %s where cat_id = %s limit %d, %d
+                      """ % ('articles', pCatId, pStartAt, pLimit)
+            results = self.pre_local.execute_query(_sql, 'select')
+            if results is not None:
+                for article_id, cat_id, article_text, timestamp in results:
+                    article_data = {}
+                    article_data['articleId'] = article_id
+                    article_data['catId'] = cat_id
+                    article_data['articleText'] = article_text
+                    article_data['ans'] = 0
+                    article_data['tags'] = "FUCK"
+                    article_data['qnType'] = "ARTICLE"
+                    article_data['opts'] = []
+                    article_data['cDate'] = time.mktime(timestamp.timetuple())*1000
+                    question_list.append(article_data)
+        except Exception as e:
+            return json.dumps({'status': str(e)})
+        response_data = {}
+        response_data['version'] = self.app_ver
+        response_data['appId'] = self.app_id_pg
+        response_data['questions'] = question_list
+        response.status = 200
+        return json.dumps(response_data, default=self.serialize)
+
     def get_questions(self):
         response.content_type = 'application/json;charset=utf-8'
         response.status = 400
