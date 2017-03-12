@@ -7,6 +7,8 @@ import datetime
 from pre_storage import PreLocal
 from bottle import request, response
 from config import prepup_data
+import cgi
+from random import shuffle
 
 prepup = prepup_data()
 
@@ -67,14 +69,16 @@ class PgData(object):
             if results is not None:
                 for article_id, cat_id, article_text, timestamp in results:
                     article_data = {}
-                    article_data['articleId'] = article_id
+                    article_data['questionId'] = article_id
                     article_data['catId'] = cat_id
-                    article_data['articleText'] = article_text
+                    article_data['qnText'] = "ARTICLE DAALTA HOON BAD ME"
                     article_data['ans'] = 0
                     article_data['tags'] = "FUCK"
                     article_data['qnType'] = "ARTICLE"
                     article_data['opts'] = []
+                    article_data['explanation'] = cgi.escape(article_text).decode('utf-8',errors='ignore').encode('ascii', 'xmlcharrefreplace')
                     article_data['cDate'] = time.mktime(timestamp.timetuple())*1000
+                    article_data['extLink'] = "WWW.PORNHUB.COM"
                     question_list.append(article_data)
         except Exception as e:
             return json.dumps({'status': str(e)})
@@ -92,13 +96,17 @@ class PgData(object):
         pCatId = params.get("catId", None)
         if pCatId is None:
             return json.dumps({"Error": "catId can't be null"})
-        pLimit = int(params.get("limit", 20))
+        pLimit = int(params.get("limit", 10))
         pStartAt = int(params.get("startAt", 0))
         question_list = []
+        limitQn = pLimit*3/4
+        limitAr = pLimit - limitQn
+        startQn = pStartAt*3/4
+        startAr = pStartAt - startQn
         try:
             _sql = """
                      select * from %s where cat_id = %s limit %d, %d
-                      """ % ('question_mcq', pCatId, pStartAt, pLimit)
+                      """ % ('question_mcq', pCatId, startQn, limitQn)
             results = self.pre_local.execute_query(_sql, 'select')
             if results is not None:
                 for question_id, cat_id, qn_text, opt1, opt2, opt3, opt4, \
@@ -130,6 +138,29 @@ class PgData(object):
                     question_list.append(question_data)
         except Exception as e:
             return json.dumps({'status': str(e)})
+        try:
+            _sql = """
+                     select * from %s where cat_id = %s limit %d, %d
+                      """ % ('articles', pCatId, startAr, limitAr)
+            results = self.pre_local.execute_query(_sql, 'select')
+            if results is not None:
+                for article_id, cat_id, article_text, timestamp, preview_text in results:
+                    article_data = {}
+                    article_data['questionId'] = article_id
+                    article_data['catId'] = cat_id
+                    article_data['qnText'] = "ARTICLE DAALTA HOON BAD ME"
+                    article_data['ans'] = 0
+                    article_data['tags'] = "FUCK"
+                    article_data['qnType'] = "ARTICLE"
+                    article_data['opts'] = []
+                    article_data['explanation'] = cgi.escape(article_text).decode('utf-8',errors='ignore').encode('ascii', 'xmlcharrefreplace')
+                    article_data['cDate'] = time.mktime(timestamp.timetuple())*1000
+                    article_data['extLink'] = "WWW.PORNHUB.COM"
+                    article_data['previewText'] = preview_text
+                    question_list.append(article_data)
+        except Exception as e:
+            return json.dumps({'status': str(e)})
+        shuffle(question_list)
         response_data = {}
         response_data['version'] = self.app_ver
         response_data['appId'] = self.app_id_pg
