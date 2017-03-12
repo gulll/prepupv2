@@ -171,96 +171,96 @@ class PgData(object):
         return json.dumps(response_data, default=self.serialize)
 
 
-def get_test_list(self):
-    response.content_type = 'application/json;charset=utf-8'
-    response.status = 400
-    params = dict(request.POST)
-    pCatId = params.get("catId", None)
-    if pCatId is None:
-        return json.dumps({"Error": "catId can't be null"})
-    pLimit = int(params.get("limit", 10))
-    pStartAt = int(params.get("startAt", 0))
-    test_list = []
-    try:
-        _sql = """
-                 select * from %s where cat_id = %s limit %d, %d
-                  """ % ('testMeta', pCatId, pStartAt, pLimit)
-        results = self.pre_local.execute_query(_sql, 'select')
-        if results is not None:
-            for test_id, title, cat_id, total_questions, total_attempts, source, timestamp, \
-                total_time, p_marks, n_marks, instruction in results:
-                test_data = {}
-                test_data['testId'] = test_id
-                test_data['catId'] = cat_id
-                test_data['title'] = title
-                test_data['source'] = source
-                test_data['totalQuestions'] = total_questions
-                test_data['totalAttempts'] = total_attempts
-                test_data['totalTime'] = total_time
-                test_data['instruction'] = instruction
-                test_data['cDate'] = time.mktime(timestamp.timetuple()) * 1000
-                test_data['pMarks'] = p_marks
-                test_data['nMarks'] = n_marks
-                test_list.append(test_data)
+    def get_test_list(self):
+        response.content_type = 'application/json;charset=utf-8'
+        response.status = 400
+        params = dict(request.POST)
+        pCatId = params.get("catId", None)
+        if pCatId is None:
+            return json.dumps({"Error": "catId can't be null"})
+        pLimit = int(params.get("limit", 10))
+        pStartAt = int(params.get("startAt", 0))
+        test_list = []
+        try:
+            _sql = """
+                     select * from %s where cat_id = %s limit %d, %d
+                      """ % ('testMeta', pCatId, pStartAt, pLimit)
+            results = self.pre_local.execute_query(_sql, 'select')
+            if results is not None:
+                for test_id, title, cat_id, total_questions, total_attempts, source, timestamp, \
+                    total_time, p_marks, n_marks, instruction in results:
+                    test_data = {}
+                    test_data['testId'] = test_id
+                    test_data['catId'] = cat_id
+                    test_data['title'] = title
+                    test_data['source'] = source
+                    test_data['totalQuestions'] = total_questions
+                    test_data['totalAttempts'] = total_attempts
+                    test_data['totalTime'] = total_time
+                    test_data['instruction'] = instruction
+                    test_data['cDate'] = time.mktime(timestamp.timetuple()) * 1000
+                    test_data['pMarks'] = p_marks
+                    test_data['nMarks'] = n_marks
+                    test_list.append(test_data)
 
-    except Exception as e:
-        return json.dumps({'status': str(e)})
-    response_data = {}
-    response_data['version'] = self.app_ver
-    response_data['appId'] = self.app_id_pg
-    response_data['tests'] = test_list
-    response.status = 200
-    return json.dumps(response_data, default=self.serialize)
+        except Exception as e:
+            return json.dumps({'status': str(e)})
+        response_data = {}
+        response_data['version'] = self.app_ver
+        response_data['appId'] = self.app_id_pg
+        response_data['tests'] = test_list
+        response.status = 200
+        return json.dumps(response_data, default=self.serialize)
 
 
-def get_test_data(self):
-    response.content_type = 'application/json;charset=utf-8'
-    response.status = 400
-    params = dict(request.POST)
-    pTestId = params.get("testId", None)
-    if pTestId is None:
-        return json.dumps({"Error": "pTestId can't be null"})
-    test_question = []
-    try:
-        _sql = """
-                 select * from %s where question_id in
-                 (select question_id from %s where test_id =%d);
-                  """ % ('question_mcq', 'testQuestions', pTestId)
-        results = self.pre_local.execute_query(_sql, 'select')
-        if results is not None:
-            for question_id, cat_id, qn_text, opt1, opt2, opt3, opt4, \
-                opt5, opt6, ans, tags, explanation, extLink, timestamp, qnType in results:
-                question_data = {}
-                question_data['questionId'] = question_id
-                question_data['catId'] = cat_id
-                question_data['qnText'] = qn_text
-                opts = []
-                if opt1 is not None:
-                    opts.append(opt1)
-                if opt2 is not None:
-                    opts.append(opt2)
-                if opt3 is not None:
-                    opts.append(opt3)
-                if opt4 is not None:
-                    opts.append(opt4)
-                if opt5 is not None:
-                    opts.append(opt5)
-                if opt6 is not None:
-                    opts.append(opt6)
-                question_data['opts'] = opts
-                question_data['ans'] = ans
-                question_data['tags'] = tags
-                question_data['explanation'] = explanation
-                question_data['extLink'] = extLink
-                question_data['qnType'] = qnType
-                question_data['cDate'] = time.mktime(timestamp.timetuple()) * 1000
-                test_question.append(question_data)
+    def get_test_data(self):
+        response.content_type = 'application/json;charset=utf-8'
+        response.status = 400
+        params = dict(request.POST)
+        pTestId = params.get("testId", None)
+        if pTestId is None:
+            return json.dumps({"Error": "pTestId can't be null"})
+        test_question = []
+        try:
+            _sql = """
+                     select * from %s where question_id in
+                     (select question_id from %s where test_id =%d);
+                      """ % ('question_mcq', 'testQuestions', pTestId)
+            results = self.pre_local.execute_query(_sql, 'select')
+            if results is not None:
+                for question_id, cat_id, qn_text, opt1, opt2, opt3, opt4, \
+                    opt5, opt6, ans, tags, explanation, extLink, timestamp, qnType in results:
+                    question_data = {}
+                    question_data['questionId'] = question_id
+                    question_data['catId'] = cat_id
+                    question_data['qnText'] = qn_text
+                    opts = []
+                    if opt1 is not None:
+                        opts.append(opt1)
+                    if opt2 is not None:
+                        opts.append(opt2)
+                    if opt3 is not None:
+                        opts.append(opt3)
+                    if opt4 is not None:
+                        opts.append(opt4)
+                    if opt5 is not None:
+                        opts.append(opt5)
+                    if opt6 is not None:
+                        opts.append(opt6)
+                    question_data['opts'] = opts
+                    question_data['ans'] = ans
+                    question_data['tags'] = tags
+                    question_data['explanation'] = explanation
+                    question_data['extLink'] = extLink
+                    question_data['qnType'] = qnType
+                    question_data['cDate'] = time.mktime(timestamp.timetuple()) * 1000
+                    test_question.append(question_data)
 
-    except Exception as e:
-        return json.dumps({'status': str(e)})
-    response_data = {}
-    response_data['version'] = self.app_ver
-    response_data['appId'] = self.app_id_pg
-    response_data['tests'] = test_question
-    response.status = 200
-    return json.dumps(response_data, default=self.serialize)
+        except Exception as e:
+            return json.dumps({'status': str(e)})
+        response_data = {}
+        response_data['version'] = self.app_ver
+        response_data['appId'] = self.app_id_pg
+        response_data['tests'] = test_question
+        response.status = 200
+        return json.dumps(response_data, default=self.serialize)
