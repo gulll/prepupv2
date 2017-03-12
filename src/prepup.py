@@ -188,7 +188,7 @@ class PgData(object):
             results = self.pre_local.execute_query(_sql, 'select')
             if results is not None:
                 for test_id, title, cat_id, total_questions, total_attempts, source, timestamp, \
-                    total_time, p_marks, n_marks, instruction in results:
+                    total_time, total_marks, instruction in results:
                     test_data = {}
                     test_data['testId'] = test_id
                     test_data['catId'] = cat_id
@@ -199,8 +199,7 @@ class PgData(object):
                     test_data['totalTime'] = total_time
                     test_data['instruction'] = instruction
                     test_data['cDate'] = time.mktime(timestamp.timetuple()) * 1000
-                    test_data['pMarks'] = p_marks
-                    test_data['nMarks'] = n_marks
+                    test_data['totalMarks'] = total_marks
                     test_list.append(test_data)
 
         except Exception as e:
@@ -223,9 +222,17 @@ class PgData(object):
         test_question = []
         try:
             _sql = """
-                     select * from %s where question_id in
-                     (select question_id from %s where test_id =%d);
-                      """ % ('question_mcq', 'testQuestions', pTestId)
+                     select question_id, marks, n_marks from %s where test_id =%d;
+                     """ % ('testQuestions', pTestId)
+            _results = self.pre_local.execute_query(_sql, 'select')
+            question_list = {}
+            if _results is not None:
+                for question_id, marks, n_marks in _results:
+                    question_list[question_id] = (marks, n_marks)
+
+            _sql = """
+                     select * from %s where question_id in %s;
+                      """ % ('question_mcq', list(question_list.iterkeys()))
             results = self.pre_local.execute_query(_sql, 'select')
             if results is not None:
                 for question_id, cat_id, qn_text, opt1, opt2, opt3, opt4, \
@@ -254,6 +261,8 @@ class PgData(object):
                     question_data['extLink'] = extLink
                     question_data['qnType'] = qnType
                     question_data['cDate'] = time.mktime(timestamp.timetuple()) * 1000
+                    question_data['pMarks'] = question_list[question_id][0]
+                    question_data['nMarks'] = question_list[question_id][1]
                     test_question.append(question_data)
 
         except Exception as e:
@@ -261,6 +270,6 @@ class PgData(object):
         response_data = {}
         response_data['version'] = self.app_ver
         response_data['appId'] = self.app_id_pg
-        response_data['tests'] = test_question
+        response_data['questions'] = test_question
         response.status = 200
         return json.dumps(response_data, default=self.serialize)
