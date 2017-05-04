@@ -1,0 +1,417 @@
+Q.1 If h is any hashing function and is used to hash n keys in to a table of size m, where n<=m, the expected number of collisions involving a particular key x is :
+ (A) less than 1. 
+ (B) less than n.
+ (C) less than m. 
+ (D) less than n/2.
+ Ans:A
+ Tags:Algorithm,Hashing
+
+Q.2 Let A be an adjacency matrix of a graph G. The ij^(th) entry in the matrix A^K , gives
+ (A) The number of paths of length K from vertex Vi to vertex Vj.
+ (B) Shortest path of K edges from vertex Vi to vertex Vj.
+ (C) Length of a Eulerian path from vertex Vi to vertex Vj.
+ (D) Length of a Hamiltonian cycle from vertex Vi to vertex Vj.
+ Ans:B
+ Tags:Data Structure,Graph
+
+Q.4 What is the following code segment doing?
+ void fn( ){
+  char c;
+  cin.get(c);
+  if (c != '\n') {
+    fn( );
+    cout.put(c);
+  }
+ }
+ (A) The string entered is printed as it is.
+ (B) The string entered is printed in reverse order.
+ (C) It will go in an infinite loop.
+ (D) It will print an empty line.
+ Ans:B
+ Tags:Algorithm,Recursion 
+
+Q.5 You have to sort a list L consisting of a sorted list followed by a few "random" elements.
+ Which of the following sorting methods would be especially suitable for such a task?
+ (A) Bubble sort 
+ (B) Selection sort
+ (C) Quick sort 
+ (D) Insertion sort
+ Ans:D
+ Tags:Algorithm,Sorting
+
+Q.6 B Trees are generally
+ (A) very deep and narrow 
+ (B) very wide and shallow
+ (C) very deep and very wide 
+ (D) cannot say
+ Ans:D
+ Tags:Data Structure,Trees, B Trees
+
+Q.7 A technique for direct search is
+ (A) Binary Search 
+ (B) Linear Search
+ (C) Tree Search 
+ (D) Hashing
+ Ans:D
+ Tags:Algorithm, Search, Hashing
+
+Q.8 If a node having two children is deleted from a binary tree, it is replaced by its
+ (A) Inorder predecessor 
+ (B) Inorder successor
+ (C) Preorder predecessor 
+ (D) None of the above
+ Ans:B
+ Tags:Data Structure,Trees, Binary Trees
+
+Q.9 The searching technique that takes O (1) time to find a data is
+ (A) Linear Search 
+ (B) Binary Search
+ (C) Hashing 
+ (D) Tree Search
+ Ans:C
+ Tags:Algorithm, Search, Hashing
+
+Q.10 A mathematical-model with a collection of operations defined on that model is called
+ (A) Data Structure 
+ (B) Abstract Data Type
+ (C) Primitive Data Type 
+ (D) Algorithm
+ Ans:B
+ Tags:Data Structure
+
+Q.11 The number of interchanges required to sort 5, 1, 6, 2 4 in ascending order using Bubble Sort is
+ (A) 6 
+ (B) 5
+ (C) 7 
+ (D) 8
+ Ans:B
+ Tags:Algorithm,Sorting,Bubble Sort
+
+Q.12 The postfix form of the expression (A + B)∗(C∗D − E)∗F / G is
+ (A) AB + CD∗E − FG /∗∗ 
+ (B) / AB + CD ∗ E − F ∗∗G
+ (C) / AB + CD ∗ E − ∗F ∗ G 
+ (D) / AB + CDE ∗ − ∗ F ∗ G
+ Ans:A
+ Tags:Data Structure,Stack,Postfix
+
+Q.13 The complexity of multiplying two matrices of order m*n and n*p is
+ (A) mnp 
+ (B) mp
+ (C) mn 
+ (D) np
+ Ans:A
+ Tags:Algorithm,Complexity
+
+Q.14 Merging 4 sorted files containing 50, 10, 25 and 15 records will take____time
+ (A) O (100) 
+ (B) O (200)
+ (C) O (175) 
+ (D) O (125)
+ Ans:A
+ Tags:Algorithm,Complexity
+
+Q.15 For an undirected graph with n vertices and e edges, the sum of the degree of each vertex is equal to
+ (A) 2n 
+ (B) (2n-1)/2
+ (C) 2e 
+ (D) e
+ Ans:C
+ Tags:Data Structure,Graph
+
+Q.16 In worst case Quick Sort has order
+ (A) O (n log n) 
+ (B) O (n^2/2)
+ (C) O (log n) 
+ (D) O (n^2/4)
+ Ans:B
+ Tags:Algorithm,Complexity,Sorting,Quick Sort
+
+Q.17 A full binary tree with 2n+1 nodes contain
+ (A) n leaf nodes 
+ (B) n non-leaf nodes
+ (C) n-1 leaf nodes 
+ (D) n-1 non-leaf nodes
+ Ans:B
+ Tags:Data Structure,Trees,Binary Tree
+
+Q.18 If a node in a BST has two children, then its inorder predecessor has
+ (A) no left child 
+ (B) no right child
+ (C) two children 
+ (D) no child
+ Ans:B
+ Tags:Data Structure,Trees,Binary Search Tree,Binary Tree
+
+Q.19 A binary tree in which if all its levels except possibly the last, have the maximum number of nodes and all the nodes at the last level appear as far left as possible, is known as
+ (A) full binary tree. 
+ (B) AVL tree.
+ (C) threaded tree. 
+ (D) complete binary tree.
+ Ans:A
+ Tags:Data Structure,Trees,Binary Tree
+
+Q.20 A linear list of elements in which deletion can be done from one end (front) and insertion can take place only at the other end (rear) is known as a
+ (A) queue. 
+ (B) stack. 
+ (C) tree. 
+ (D) linked list.
+ Ans:A
+ Tags:Data Structure
+
+Q.21 What is the postfix form of the following prefix expression -A/B*C$DE
+ (A) ABCDE$*/- 
+ (B) A-BCDE$*/-
+ (C) ABC$ED*/- 
+ (D) A-BCDE$*/
+ Ans:A
+ Tags:Data Structure,Stack,Postfix,Prefix
+
+Q.22 A full binary tree with n leaves contains
+ (A) n nodes. 
+ (B) log n^2 nodes.
+ (C) 2n –1 nodes. 
+ (D) n^2 nodes.
+ Ans:C
+ Tags:Data Structure,Trees,Binary Tree
+
+Q.23 A sort which relatively passes through a list to exchange the first element with any element less than it and then repeats with a new first element is called
+ (A) insertion sort. 
+ (B) selection sort.
+ (C) heap sort. 
+ (D) quick sort.
+ Ans:D
+ Tags:Algorithm,Complexity,Sorting
+
+Q.24 Which of the following sorting algorithms does not have a worst case running time of O(n^2)?
+ (A) Insertion sort 
+ (B) Merge sort
+ (C) Quick sort 
+ (D) Bubble sort
+ Ans:B
+ Tags:Algorithm,Complexity,Sorting
+
+Q.25 An undirected graph G with n vertices and e edges is represented by adjacency list. What is the time required to generate all the connected components?
+ (A)O (n) 
+ (B) O (e)
+ (C) O (e+n) 
+ (D) O (e^2)
+ Ans:C
+ Tags:Data Structure,Graph
+
+Q.26 Consider a linked list of n elements. What is the time taken to insert an element after an element pointed by some pointer?
+ (A) O (1) 
+ (B) O (log2 n) 
+ (C) O (n) 
+ (D) O (n log2 n)
+ Ans:A
+ Tags:Data Structure,Linked List
+
+Q.27 The smallest element of an array's index is called its
+ (A) lower bound. 
+ (B) upper bound.
+ (C) range. 
+ (D) extraction. 
+ Ans:A
+
+Q.28 In a circular linked list
+ (A) components are all linked together in some sequential manner.
+ (B) there is no beginning and no end.
+ (C) components are arranged hierarchically.
+ (D) forward and backward traversal within the list is permitted.
+ Ans:B
+ Tags:Data Structure,Linked List,Circular Linked list
+
+Q.29 A graph with n vertices will definitely have a parallel edge or self loop of the total number of edges are
+ (A) more than n 
+ (B) more than n+1
+ (C) more than (n+1)/2 
+ (D) more than n(n-1)/2
+ Ans:D
+ Tags:Data Structure,Graph
+
+Q.30 The minimum number of multiplications and additions required to evaluate the polynomial
+ P = 4x^3+3x^2-15x+45 is
+ (A) 6 & 3 
+ (B) 4 & 2
+ (C) 3 & 3 
+ (D) 8 & 3
+ Ans:C
+ Tags:Algorithm,Complexity
+
+Q.31 The maximum degree of any vertex in a simple graph with n vertices is
+ (A) n–1 
+ (B) n+1
+ (C) 2n–1 
+ (D) n
+ Ans:A
+ Tags:Data Structure,Graph
+
+Q.32 The data structure required for Breadth First Traversal on a graph is
+ (A) queue 
+ (B) stack
+ (C) array 
+ (D) tree
+ Ans:A
+ Tags:Data Structure,Graph
+
+Q.33 The quick sort algorithm exploit _________ design technique
+ (A) Greedy 
+ (B) Dynamic programming
+ (C) Divide and Conquer 
+ (D) Backtracking
+ Ans:C
+ Tags:Algorithm,Complexity,Sorting
+
+Q.34 The number of different directed trees with 3 nodes are
+ (A) 2 
+ (B) 3
+ (C) 4 
+ (D) 5
+ Ans:B 
+ Tags:Data Structure,Trees
+
+Q.35 One can convert a binary tree into its mirror image by traversing it in
+ (A) inorder 
+ (B) preorder
+ (C) postorder 
+ (D) any order
+ Ans:C
+ Tags:Data Structure,Trees
+
+Q.37 In a linked list with n nodes, the time taken to insert an element after an element pointed by some pointer is
+ (A) 0 (1) 
+ (B) 0 (log n)
+ (C) 0 (n) 
+ (D) 0 (n 1og n)
+ Ans:A
+ Tags:Data Structure,Linked List
+
+Q.38 The data structure required to evaluate a postfix expression is
+ (A) queue 
+ (B) stack
+ (C) array 
+ (D) linked-list
+ Ans:B
+ Tags:Data Structure
+
+Q.39 The data structure required to check whether an expression contains balanced parenthesis is
+ (A) Stack 
+ (B) Queue
+ (C) Tree 
+ (D) Array
+ Ans:A
+ Tags:Data Structure
+
+Q.40 The complexity of searching an element from a set of n elements using Binary search algorithm is
+ (A)O(n) 
+ (B) O(log n)
+ (C) O(n2) 
+ (D) O(n log n)
+ Ans:B
+ Tags:Algorithm,Complexity,Binary search
+
+Q.41 The number of leaf nodes in a complete binary tree of depth d is
+ (A) 2^d
+ (B) 2^(d–1)+1
+ (C) 2^(d+1)+1 
+ (D) 2^d+1
+ Ans:A
+ Tags:Data Structure
+
+Q.42 What data structure would you mostly likely see in a nonrecursive implementation of a recursive algorithm?
+ (A) Stack 
+ (B) Linked list
+ (C) Queue 
+ (D) Trees 
+ Ans:A
+ Tags:Data Structure
+
+Q.43 Which of the following sorting methods would be most suitable for sorting a list which is almost sorted
+ (A) Bubble Sort 
+ (B) Insertion Sort
+ (C) Selection Sort 
+ (D) Quick Sort
+ Ans:A
+ Tags:Algorithm,Sorting
+
+Q.44 A B-tree of minimum degree t can maximum _____ pointers in a node.
+ (A) t–1 
+ (B) 2t–1
+ (C) 2t 
+ (D) t
+ Ans:D
+ Tags:Data Structure,Trees,B-Tree
+
+Q.45 The process of accessing data stored in a serial access memory is similar to manipulating data
+ on a
+ (A) heap 
+ (B) queue
+ (C) stack 
+ (D) binary tree
+ Ans:C
+ Tags:Data Structure
+
+Q.46 A graph with n vertices will definitely have a parallel edge or self loop if the total number of
+ edges are
+ (A) greater than n–1 
+ (B) less than n(n–1)
+ (C) greater than n(n–1)/2 
+ (D) less than n^2/2
+ Ans:A
+ Tags:Data Structure,Graph
+
+Q.47 A BST is traversed in the following order recursively: Right, root, left
+ The output sequence will be in
+ (A) Ascending order 
+ (B) Descending order
+ (C) Bitomic sequence 
+ (D) No specific order
+ Ans:B
+ Tags:Data Structure,Trees
+
+Q.48 The pre-order and post order traversal of a Binary Tree generates the same output. The tree can
+ have maximum
+ (A) Three nodes 
+ (B) Two nodes
+ (C) One node 
+ (D) Any number of nodes
+ Ans:C
+ Tags:Data Structure,Trees
+
+Q.49 The postfix form of A*B+C/D is
+ (A) *AB/CD+ 
+ (B) AB*CD/+
+ (C) A*BC+/D 
+ (D) ABCD+/*
+ Ans:B
+ Tags:Data Structure,Stack,Postfix
+
+Q.50 Let the following circular queue can accommodate maximum six elements with the
+ following data
+ front = 2 rear = 4
+ queue = _______; L, M, N, ___, ___
+ What will happen after ADD O operation takes place?
+ (A) front = 2 rear = 5 queue = ______; L, M, N, O, ___
+ (B) front = 3 rear = 5 queue = L, M, N, O, ___
+ (C) front = 3 rear = 4 queue = ______; L, M, N, O, ___
+ (D) front = 2 rear = 4 queue = L, M, N, O, ___
+ Ans:A
+ Tags:Data Structure,Linked List
+
+Q.51 A binary tree of depth "d" is an almost complete binary tree if
+ (A) Each leaf in the tree is either at level "d" or at level "d–1"
+ (B) For any node "n" in the tree with a right descendent at level "d" all the left descendents of "n" that are leaves, are also at level "d"
+ (C) Both (A) & (B)
+ (D) None of the above
+ Ans:C
+ Tags:Data Structure,Trees
+
+Q.52 A linear collection of data elements where the linear node is given by means of pointer is
+ called
+ (A) linked list 
+ (B) node list
+ (C) primitive list 
+ (D) None of these
+ Ans:A
+ Tags:Data Structure

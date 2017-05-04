@@ -188,7 +188,7 @@ class PgData(object):
             results = self.pre_local.execute_query(_sql, 'select')
             if results is not None:
                 for test_id, title, cat_id, total_questions, total_attempts, source, timestamp, \
-                    total_time, total_marks, instruction in results:
+                    total_time, instruction, total_marks in results:
                     test_data = {}
                     test_data['testId'] = test_id
                     test_data['catId'] = cat_id
@@ -216,7 +216,7 @@ class PgData(object):
         response.content_type = 'application/json;charset=utf-8'
         response.status = 400
         params = dict(request.POST)
-        pTestId = params.get("testId", None)
+        pTestId = int(params.get("testId", None))
         if pTestId is None:
             return json.dumps({"Error": "pTestId can't be null"})
         test_question = []
@@ -228,11 +228,13 @@ class PgData(object):
             question_list = {}
             if _results is not None:
                 for question_id, marks, n_marks in _results:
-                    question_list[question_id] = (marks, n_marks)
-
+                    question_list[int(question_id)] = (marks, n_marks)
+            else:
+               return json.dumps({"status": "No questions in test"})
+            myTuple= tuple(list(question_list.iterkeys()))
             _sql = """
                      select * from %s where question_id in %s;
-                      """ % ('question_mcq', list(question_list.iterkeys()))
+                      """ % ('question_mcq', str(myTuple))
             results = self.pre_local.execute_query(_sql, 'select')
             if results is not None:
                 for question_id, cat_id, qn_text, opt1, opt2, opt3, opt4, \
